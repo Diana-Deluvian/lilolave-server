@@ -2,9 +2,12 @@ const express = require('express')
 const app = express();
 require('dotenv').config();
 const PORT = process.env.PORT || 8080;
+const cors = require('cors');
 
 app.use(express.json()); //Used to parse JSON bodies
-app.use(express.urlencoded()); //Parse URL-encoded bodies
+
+app.use(cors());
+
 
 const mongoose = require("mongoose");
 console.log(process.env.DB_USERNAME);
@@ -31,12 +34,20 @@ let post = {
 
 app.get('/', (req, res) => {    
   res.send('Hello World!')
+});
+
+app.get('/getPosts', (req, res) => {
+  Post.find({}, (err, posts) =>{
+  if(err) return handleError(err)
+  res.send(posts)   
+  });
+  //res.send(posts)
 })
 
-app.post('/postPost', (req, res) => {
-    console.log(req.body);
+app.post('/postPost', (req, res) => {    
     Post.create(req.body, function (err, post) {
         if (err) return handleError(err);
+        console.log(post)
         res.send(post);
       });
 })
