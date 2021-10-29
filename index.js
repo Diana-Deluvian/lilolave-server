@@ -10,7 +10,6 @@ app.use(cors());
 
 
 const mongoose = require("mongoose");
-console.log(process.env.DB_USERNAME);
 mongoose.connect("mongodb+srv://" + process.env.DB_USERNAME 
 + ":" + process.env.DB_PASSWORD 
 + "@personal-data.telw9.mongodb.net/lilolave?retryWrites=true&w=majority", {
@@ -50,8 +49,15 @@ app.post('/postPost', (req, res) => {
         console.log(post)
         res.send(post);
       });
-})
+});
+
+app.delete('/deletePost/:id', (req, res) => {
+  const query = { "_id": req.params.id };
+  Post.deleteOne(query)
+  .then(result => console.log(`Deleted ${result.deletedCount} item.`))
+  .catch(err => console.error(`Delete failed with error: ${err}`))
+});
 
 app.listen(PORT, () => {
-  console.log(`Example app listening at http://localhost:${PORT}`)
+  console.log(`Server listening at http://localhost:${PORT}`)
 })
