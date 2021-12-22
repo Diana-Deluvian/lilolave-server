@@ -52,14 +52,12 @@ app.get('/posts', (req, res) => {
     if (err) return handleError(err);
     res.send(posts);
   });
-  //res.send(posts)
 });
 
 app.post(
   '/post',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    console.log('here');
     Post.create(req.body, function (err, post) {
       if (err) return handleError(err);
       console.log(post);
@@ -116,6 +114,7 @@ app.post('/login', async (req, res, next) => {
   );
 });
 
+/*
 app.post('/register', async (req, res, next) => {
   const user = await User.findOne({ username: req.body.username });
   if (user)
@@ -132,6 +131,8 @@ app.post('/register', async (req, res, next) => {
     }
   );
 });
+*/
+//website is meant just for me, no point in letting others register
 
 const handleError = (err) => {
   console.log(err);
