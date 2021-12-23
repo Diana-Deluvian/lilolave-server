@@ -70,7 +70,7 @@ app.put(
   '/post/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    Recipe.findOneAndUpdate({ _id: req.params.id }, req.body, {
+    Post.findOneAndUpdate({ _id: req.params.id }, req.body, {
       returnDocument: 'after',
     })
       .then((result) => res.send(result))
@@ -82,7 +82,7 @@ app.delete(
   '/post/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    Recipe.deleteOne({ _id: req.params.id })
+    Post.deleteOne({ _id: req.params.id })
       .then((result) => res.send(result))
       .catch((err) => handleError(err));
   }

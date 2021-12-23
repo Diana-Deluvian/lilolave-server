@@ -4,12 +4,11 @@ const { Schema } = mongoose;
 const postSchema = new Schema({
   category: String,
   title: String,
-  contents: [String],
-  references: [String],
+  content: String,
   date: String,
-  personalNotes: [String],
-  additionalInfos: [String],
-  keywords: [String],
+  personalNotes: String,
+  otherInfo: String,
+  keywords: String,
   hidden: Boolean,
 });
 
