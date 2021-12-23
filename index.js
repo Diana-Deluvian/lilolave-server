@@ -12,8 +12,6 @@ require('./passport/passport')(passport);
 
 app.use(passport.initialize());
 
-app.use(express.json()); //Used to parse JSON bodies
-
 app.use(
   cors({
     origin: [
@@ -25,6 +23,9 @@ app.use(
     credentials: true,
   })
 );
+
+app.use(express.json()); //Used to parse JSON bodies
+app.use(express.urlencoded({ extended: true }));
 
 const mongoose = require('mongoose');
 mongoose.connect(
@@ -58,6 +59,7 @@ app.post(
   '/post',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
+    console.log(req.body);
     Post.create(req.body, function (err, post) {
       if (err) return handleError(err);
       console.log(post);
