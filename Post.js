@@ -10,6 +10,7 @@ const postSchema = new Schema({
   otherInfo: String,
   keywords: String,
   hidden: Boolean,
+    pinned: Boolean,
 });
 
 const Post = mongoose.model('Post', postSchema);

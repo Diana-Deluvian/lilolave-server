@@ -49,11 +49,22 @@ const Post = require('./Post');
 const User = require('./User');
 
 app.get('/posts', (req, res) => {
-  Post.find({}, (err, posts) => {
+  Post.find({ hidden: false }, (err, posts) => {
     if (err) return handleError(err);
     res.send(posts);
   });
 });
+
+app.get(
+  '/allPosts',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Post.find({}, (err, posts) => {
+      if (err) return handleError(err);
+      res.send(posts);
+    });
+  }
+);
 
 app.post(
   '/post',
